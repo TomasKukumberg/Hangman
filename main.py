@@ -1,7 +1,5 @@
 import httpx
 import PySimpleGUI as sg
-from goto import with_goto
-
 
 def is_game_over():
     txt = window['txtCurr'].DisplayText
