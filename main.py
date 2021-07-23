@@ -20,9 +20,8 @@ def find_letter(txt, txt_find):
     window['txtCurr'].update(value=tmp)
     window[txt].Update(visible=False)
 
-@with_goto
+
 if __name__ == '__main__':
-    label.start
     r = httpx.get('https://random-word-api.herokuapp.com/word?number=1&swear=0')
     offset = 2
     game_over = False
