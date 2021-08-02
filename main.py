@@ -11,17 +11,21 @@ def is_game_over():
 
 
 def find_letter(txt, txt_find):
+    global text_current
+    text_current_tmp = list(text_current)
     tmp = window['txtCurr'].DisplayText
     tmp = list(tmp)
     match = False
 
-    for i in range(0, len(window['txtCurr'].DisplayText)):
+    for i in range(0, len(tmp)):
         if txt_find[i] == txt.lower():
             tmp[i] = txt
+            text_current_tmp[i] = txt
             match = True
 
     tmp = "".join(tmp)
     window['txtCurr'].update(value=tmp)
+    text_current = text_current_tmp
     window[txt].Update(visible=False)
 
     if not match:
@@ -39,13 +43,13 @@ if __name__ == '__main__':
     game_over = False
     fail_count = 0
 
-    txt_find = r.text[offset:len(r.text) - offset:]
-    txt_cur = '_' * len(txt_find)
+    text_goal = r.text[offset:len(r.text) - offset:]
+    text_current = '_' * len(text_goal)
     # todo implement retry and fix wrong display of guessing text.
-    alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+    alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
              'V', 'W', 'X', 'Y', 'Z']
 
-    layout = [[sg.T(text=txt_cur, key='txtCurr', size=(40, 10), pad=(600, 0))], [sg.T("")],
+    layout = [[sg.T(text=text_current, key='txtCurr', size=(40, 10), pad=(600, 0))], [sg.T("")],
               [sg.Button('A', size=(4, 2)), sg.Button('B', size=(4, 2)), sg.Button('C', size=(4, 2)),
                sg.Button('D', size=(4, 2)), sg.Button('E', size=(4, 2)), sg.Button('F', size=(4, 2)),
                sg.Button('G', size=(4, 2)), sg.Button('H', size=(4, 2)), sg.Button('I', size=(4, 2)),
@@ -62,14 +66,14 @@ if __name__ == '__main__':
         event, values = window.read()
         if event in (None, 'Exit'):
             break
-        elif event in alpha:
-            match = find_letter(event, txt_find)
+        elif event in alphabet:
+            match = find_letter(event, text_goal)
             if not match:
                 fail_count = fail_count + 1
                 try:
                     redraw_picture(fail_count)
                 except:
-                    sg.Popup('Game over', keep_on_top=True)
+                    sg.Popup('Game over, right answer was:' + text_goal, keep_on_top=True)
 
             game_over = is_game_over()
 
