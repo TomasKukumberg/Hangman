@@ -34,7 +34,7 @@ def find_letter(txt, txt_find):
 
 
 def redraw_picture(fail_count):
-    window['img'].update(filename=r'img/img/_' + str(fail_count) + '.png')
+    window['img'].update(filename=r'img/' + str(fail_count) + '.png')
 
 
 if __name__ == '__main__':
@@ -59,7 +59,7 @@ if __name__ == '__main__':
                sg.Button('S', size=(4, 2)), sg.Button('T', size=(4, 2)), sg.Button('U', size=(4, 2)),
                sg.Button('V', size=(4, 2)), sg.Button('W', size=(4, 2)), sg.Button('X', size=(4, 2)),
                sg.Button('Y', size=(4, 2)), sg.Button('Z', size=(4, 2)), ],
-              [sg.Image(r'img/img/_0.png', size=(550, 550), key='img')]]
+              [sg.Image(r'img/0.png', size=(550, 550), key='img')]]
     window = sg.Window('Hangman', layout, size=(1320, 800))
 
     while True:
